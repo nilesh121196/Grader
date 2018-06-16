@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CGPA Calculator</title>
+	  <meta name = "viewport" content = "width = device-width, initial-scale = 1">      
+      <link rel = "stylesheet" href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+      <script type = "text/javascript" src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
+      <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script> 
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+      <script type="text/javascript">
+        var SemesterNumber = 1;
+
+          function addSem()
+          {
+            SemesterNumber++;
+          }
+
+
+      	$(document).ready(function(){
+  			  // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    	     $('.modal-trigger').leanModal();
+
+
+
+           
+
+             $("#addNewSem").click(function(){
+                $("#mainSemCard").append('<div class="row"><div class="col s10  m10"><div class="card blue-grey darken-1"><div class="card-content white-text"><span class="card-title">SEMESTER '+SemesterNumber.toString()+'</span><input id="subInput'+SemesterNumber.toString()+'" class="w3-input"  type="number" placeholder="Enter Number of Subjects"><table id="mainTable'+SemesterNumber.toString()+'" class="centered "><thead><tr><th data-field="serial">Serial</th><th data-field="id">Subject</th><th data-field="name">Grade</th><th data-field="price">Credit</th></tr></thead><tbody><tr><td ><p>1</p></td><td><input  type="text" name="mainTableSubject" placeholder="Subject Name"></td><td ><select id="s'+SemesterNumber.toString()+'s1Grade"class="btn dropdown-button  waves-effect waves-light "><option value="" disabled selected>Choose Grades</option>                                  <option value="10">O</option>                   <option value="9">A+</option>                   <option value="8">A</option>                   <option value="7">B+</option>                   <option value="6">B</option>                   <option value="5">C</option>                   <option value="4">D</option>                   <option value="0">E</option>                   <option value="0">F</option>                   <option value="0">I</option>                   <option value="0">R</option><option value="0">S</option>                   <option value="0">U</option></select></td>            <td >              <input id="s'+SemesterNumber.toString()+'s1Credit" type="number" >            </td>          </tr>        </tbody>      </table>        </div ><div class="wn-buttoncolor card-action"><h5 >Result : </h5></div></div></div></div>');
+              });
+
+
+
+              $(document).keyup(function (e) {
+                  var o;
+                for(o=1;o<=SemesterNumber;o++)
+                {
+                if ($("#subInput"+o.toString()).is(":focus") && (e.keyCode == 13)) {
+                    var j=0; 
+                    var x = document.getElementById("subInput"+SemesterNumber.toString()).value;
+                    
+                    for (j = x; j >= 2; j--) { 
+                        addRow(o,j);
+                      }
+                 }
+               }
+             });
+
+ 			    });
+
+
+          function setResult()
+          {
+            var i,j;
+            var k=1;
+            
+            var gc=0 , c=0;
+            for(i=1;i<=SemesterNumber;i++)
+            {
+              
+              k = document.getElementById("subInput"+i.toString()).value;
+              for(j=1;j<=k ; j++)
+              {
+
+                 var e = document.getElementById("s"+i.toString()+"s"+j.toString()+"Grade");
+                  gc = gc + parseInt(e.options[e.selectedIndex].value + document.getElementById("s"+i.toString()+"s"+j.toString()+"Credit").value);
+                  c = c + parseInt(document.getElementById("s"+i.toString()+"s"+j.toString()+"Credit").value);
+              }
+              alert(gc/c);
+            }
+            
+          }
+
+    
+        
+          function addRow(o,j) {
+         
+              var table = document.getElementById("mainTable"+o.toString());
+              var row = table.insertRow(2);
+              var cell1 = row.insertCell(0);
+              var cell2 = row.insertCell(1);
+              var cell3 = row.insertCell(2);
+              var cell4 = row.insertCell(3);
+              cell1.innerHTML = '<p  value="">'+j.toString()+'</p>';
+              cell2.innerHTML = '<input type="text" name="mainTableSubject" placeholder="Subject Name">';
+              cell3.innerHTML = ' <select id="s'+o.toString()+'s'+j.toString()+'Grade" class="btn dropdown-button  waves-effect waves-light "><option value="" disabled selected>Choose Grades</option><option value="10">O</option><option value="9">A+</option><option value="8">A</option><option value="7">B+</option><option value="6">B</option><option value="5">C</option><option value="4">D</option><option value="0">E</option><option value="0">F</option><option value="0">I</option><option value="0">R</option><option value="0">S</option><option value="0">U</option></select>';
+              cell4.innerHTML = '<input id="s'+o.toString()+'s'+j.toString()+'Credit" type="number" >';
+          }
+
+      </script>
+    <style type="text/css">
+    	.myfooter{
+    		position: bottom; 
+    		bottom: 0; 
+    		width: 100%; 
+    		height: 40px;
+    		
+
+    	}
+    	.wn-maincolor{
+    		background-color: #4abdac;
+    	}
+    	.wn-buttoncolor{
+    		background-color: #f7b733;
+    	}
+    	.wn-textcolor{
+    		background-color: #dfdce3;
+    	}
+    	.wn-navcolor{
+    		background-color: #fc4a1a;
+    	}
+    </style>
+
+   
+</head>
+<body class="wn-textcolor">
+<nav>
+    <div class="nav-wrapper wn-maincolor ">
+      <a href="#" class="brand-logo "> WellNeels</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li ><a href="index.html" class="waves-effect waves-light">Home</a></li>
+        <li ><a  class="modal-trigger waves-effect waves-light " href="#modal1" >Developer</a></li>
+      </ul>
+    </div>
+  </nav>
+  
+
+  <div id="modal1" class="modal modal-fixed-footer" >
+    <div class="modal-content">
+      <div class="container">
+      	<div class="row">
+      		<div class="col s8 left-align">
+      			<h4>Nilesh Mittal</h4>
+     			<p>Specilization - Web Developer</p>
+     			<p><i class="material-icons">phone</i> +917509735634</p>
+     			<p><i class="material-icons">email</i> nilesh121196@gmail.com</p>
+     			
+      		</div>
+
+      		<div class="col s4">
+      			<img class="materialboxed" width="200" src="me.jpg">
+      		</div>
+      		
+      			
+      	</div>
+      </div>
+      
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">close</a>
+    </div>
+  </div>
+		 
+
+  <div class="container-fluid wn-textcolor ">
+  	<div class="center-align">
+					   <img class="materialboxed" width="150" src="http://www.lpu.in/images/logo/logo.png">  
+  	</div>
+
+  </div>
+<div id="mainSemCard" class="container-fluid">
+     
+    <div class="row" >
+    <div class="col s10  m10">
+
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <span class="card-title">SEMESTER 1</span>
+          <input id="subInput1" class="w3-input"  type="number" placeholder="Enter Number of Subjects">
+           <table id="mainTable1" class="centered ">
+        <thead>
+          <tr>
+              <th data-field="serial">Serial</th>
+              <th data-field="id">Subject</th>
+              <th data-field="name">Grade</th>
+              <th data-field="price">Credit</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td >
+              <p>1</p>
+            </td>
+            <td><input  type="text" name="mainTableSubject" placeholder="Subject Name"></td>
+            <td >
+
+                <select id="s1s1Grade" class="btn dropdown-button  waves-effect waves-light ">
+                  <option value="" selected="selected">Choose Grades</option>               
+                   <option value="10">O</option>
+                   <option value="9">A+</option>
+                   <option value="8">A</option>
+                   <option value="7">B+</option>
+                   <option value="6" >B</option>
+                   <option value="5">C</option>
+                   <option value="4">D</option>
+                   <option value="0">E</option>
+                   <option value="0">F</option>
+                   <option value="0">I</option>
+                   <option value="0">R</option>
+                   <option value="0">S</option>
+                   <option value="0">U</option>
+                
+                </select>
+
+
+            </td>
+            <td >
+              <input id="s1s1Credit" type="number" >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+
+
+
+
+        </div >
+          <div class="wn-buttoncolor card-action">
+           <h5 >Result : </h5>
+          </div>
+       </div>
+     </div>
+    </div>  
+
+
+
+
+
+</div> <!-- mainSemCardEnd -->
+
+ <div class="container-fluid ">
+   <div class="row">
+   <div class="col s10 m10"> 
+       <a id="addNewSem" class="col s12 m12 card blue-grey darken-1 btn" onclick="addSem()"><i class="material-icons">add</i></a>
+    </div>
+   </div>
+ </div>
+
+
+
+<div>
+  <br>
+  <br>
+
+</div>
+    
+
+
+
+
+ <div class="container">
+  
+  <div class="row" style=" position: fixed; bottom: 30px; right: 20px;">
+       <a id="setResult" onclick="setResult()"  class="btn  btn-small red waves-effect waves-light ">Calculate</a> 
+  </div>
+   
+
+
+ </div> 	
+
+
+  	
+
+
+<div>
+  <br>
+  <br>
+</div>
+
+
+<div class="  myfooter wn-maincolor "  >
+		<div  class=" footer-copyright myfooter  ">
+              <h6> © 2018 Copyright WellNeels | ALL RIGHT RESERVED</h6>
+        </div>
+</div>
+
+</body>
+</html>
+
+   
+  

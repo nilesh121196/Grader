@@ -27,13 +27,14 @@
            
 
              $("#addNewSem").click(function(){
-                $("#mainSemCard").append('<div class="row"><div class="col s10  m10"><div class="card blue-grey darken-1"><div class="card-content white-text"><span class="card-title">SEMESTER '+SemesterNumber.toString()+'</span><input id="subInput'+SemesterNumber.toString()+'" class="w3-input"  type="number" placeholder="Enter Number of Subjects"><table id="mainTable'+SemesterNumber.toString()+'" class="centered "><thead><tr><th data-field="serial">Serial</th><th data-field="id">Subject</th><th data-field="name">Grade</th><th data-field="price">Credit</th></tr></thead><tbody><tr><td ><p>1</p></td><td><input  type="text" name="mainTableSubject" placeholder="Subject Name"></td><td ><select id="s'+SemesterNumber.toString()+'s1Grade"class="btn dropdown-button  waves-effect waves-light "><option value="" disabled selected>Choose Grades</option>                                  <option value="10">O</option>                   <option value="9">A+</option>                   <option value="8">A</option>                   <option value="7">B+</option>                   <option value="6">B</option>                   <option value="5">C</option>                   <option value="4">D</option>                   <option value="0">E</option>                   <option value="0">F</option>                   <option value="0">I</option>                   <option value="0">R</option><option value="0">S</option>                   <option value="0">U</option></select></td>            <td >              <input id="s'+SemesterNumber.toString()+'s1Credit" type="number" >            </td>          </tr>        </tbody>      </table>        </div ><div class="wn-buttoncolor card-action"><h5 >Result : </h5></div></div></div></div>');
+                $("#mainSemCard").append('<div class="row"><div class="col s10  m10"><div class="card blue-grey darken-1"><div class="card-content white-text"><span class="card-title">SEMESTER '+SemesterNumber.toString()+'</span><input id="subInput'+SemesterNumber.toString()+'" class="w3-input"  type="number" placeholder="Enter Number of Subjects"><table id="mainTable'+SemesterNumber.toString()+'" class="centered "><thead><tr><th data-field="serial">Serial</th><th data-field="id">Subject</th><th data-field="name">Grade</th><th data-field="price">Credit</th></tr></thead><tbody><tr><td ><p>1</p></td><td><input  type="text" name="mainTableSubject" placeholder="Subject Name"></td><td ><select id="s'+SemesterNumber.toString()+'s1Grade"class="btn dropdown-button  waves-effect waves-light "><option value="" disabled selected>Choose Grades</option>                                  <option value="10">O</option>                   <option value="9">A+</option>                   <option value="8">A</option>                   <option value="7">B+</option>                   <option value="6">B</option>                   <option value="5">C</option>                   <option value="4">D</option>                   <option value="0">E</option>                   <option value="0">F</option>                   <option value="0">I</option>                   <option value="0">R</option><option value="0">S</option>                   <option value="0">U</option></select></td>            <td >              <input id="s'+SemesterNumber.toString()+'s1Credit" type="number" >            </td>          </tr>        </tbody>      </table>        </div ><div class="wn-buttoncolor card-action"><p >TGPA : <i id="s'+SemesterNumber.toString()+'Result">NaN</i></p></div></div></div></div>');
               });
 
 
 
               $(document).keyup(function (e) {
                   var o;
+                 
                 for(o=1;o<=SemesterNumber;o++)
                 {
                 if ($("#subInput"+o.toString()).is(":focus") && (e.keyCode == 13)) {
@@ -45,6 +46,7 @@
                       }
                  }
                }
+           	
              });
 
  			    });
@@ -53,22 +55,32 @@
           function setResult()
           {
             var i,j;
-            var k=1;
+            var k;
             
             var gc=0 , c=0;
             for(i=1;i<=SemesterNumber;i++)
             {
-              
+            		var gc1=0, c1=0;
               k = document.getElementById("subInput"+i.toString()).value;
               for(j=1;j<=k ; j++)
               {
 
                  var e = document.getElementById("s"+i.toString()+"s"+j.toString()+"Grade");
-                  gc = gc + parseInt(e.options[e.selectedIndex].value + document.getElementById("s"+i.toString()+"s"+j.toString()+"Credit").value);
+                  gc = gc + ( parseInt(e.options[e.selectedIndex].value)* parseInt(document.getElementById("s"+i.toString()+"s"+j.toString()+"Credit").value) );
+                  	 gc1 = gc1 + ( parseInt(e.options[e.selectedIndex].value)* parseInt(document.getElementById("s"+i.toString()+"s"+j.toString()+"Credit").value) );
+
+                  	  c1 = c1 + parseInt(document.getElementById("s"+i.toString()+"s"+j.toString()+"Credit").value);
+
                   c = c + parseInt(document.getElementById("s"+i.toString()+"s"+j.toString()+"Credit").value);
               }
-              alert(gc/c);
+              
+              document.getElementById("s"+i.toString()+"Result").innerHTML = (gc1/c1).toFixed(2);
             }
+
+              document.getElementById("ResultGPA").innerHTML = (gc/c).toFixed(2);
+
+            
+            
             
           }
 
@@ -117,7 +129,7 @@
 <body class="wn-textcolor">
 <nav>
     <div class="nav-wrapper wn-maincolor ">
-      <a href="#" class="brand-logo "> WellNeels</a>
+      <a href="#" class="brand-logo "><img class="brand-logo" src="logo.png" height="65" width="100"></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li ><a href="index.html" class="waves-effect waves-light">Home</a></li>
         <li ><a  class="modal-trigger waves-effect waves-light " href="#modal1" >Developer</a></li>
@@ -219,7 +231,7 @@
 
         </div >
           <div class="wn-buttoncolor card-action">
-           <h5 >Result : </h5>
+           <p>TGPA : <i id="s1Result">NaN</i></p>
           </div>
        </div>
      </div>
@@ -231,7 +243,11 @@
 
 </div> <!-- mainSemCardEnd -->
 
+
+
+
  <div class="container-fluid ">
+
    <div class="row">
    <div class="col s10 m10"> 
        <a id="addNewSem" class="col s12 m12 card blue-grey darken-1 btn" onclick="addSem()"><i class="material-icons">add</i></a>
@@ -253,10 +269,31 @@
 
  <div class="container">
   
-  <div class="row" style=" position: fixed; bottom: 30px; right: 20px;">
+ 	 	 		<div class="row">
+				    <div class="col s1 m2 center-align" style="position: fixed; bottom: 80px; right: 0px;">
+				      <div class="card blue-grey darken-1">
+				        <div class="card-content white-text">
+				          <span class="card-title"></span>
+				          <h4 style="color: #f7b733;">CGPA : <i id="ResultGPA">NaN</i></h4>
+				        </div>
+
+				      </div>
+				    </div>
+				  </div>
+
+
+				  <div class="row">
+				    <div class="col s1 m2 center-align" style="position: fixed; bottom: 50px; right: 0px;">
+				          <a id="setResult" onclick="setResult()"  class="btn  btn-small red waves-effect waves-light ">Calculate</a>
+				    </div>
+				  </div>
+
+
+
+  <!-- <div class="row" style=" position: fixed; bottom: 30px; right: 20px;">
        <a id="setResult" onclick="setResult()"  class="btn  btn-small red waves-effect waves-light ">Calculate</a> 
   </div>
-   
+    -->
 
 
  </div> 	

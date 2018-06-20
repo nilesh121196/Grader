@@ -66,34 +66,38 @@
 
 
               	$(document).mousemove(function () {
-                	var flag1 = true;
+              		var flag1 = true;
+                	
                  var anch = document.getElementsByTagName("a");
 
-                  for (var i = 0; i < anch.length; i++) {
+                  for (var i1 = 0; i1 < anch.length; i1++) {
                     
-                    for(var t = 1; t<=SemesterNumber;  t++)
+                    for(var t1 = 1; t1<=SemesterNumber;  t1++)
                     {
 
-                      if(anch[i].id=="Reload"+t.toString())
+                      if(anch[i1].id=="Reload"+t1.toString())
                       {
 							// console.log(t);
 
 							// console.log(($("Reload"+t.toString()).on("click", function(){return true})));
 
-							document.getElementById("Reload"+t.toString()).onclick = function() {
+							if(flag1==true)
+							{
+							document.getElementById("Reload"+t1.toString()).onclick = function() {
 								   //alert("button was clicked");
-								   	console.log(t);
+								   	//console.log(t);
 
-								   	document.getElementById("subInput"+(t-1).toString()).value = "";
-								   	$("#subInput"+(t-1).toString()).removeAttr('disabled');
-								   	if(document.getElementById("subInput"+(t-1).toString()).value == "")
+								   	document.getElementById("subInput"+(t1-1).toString()).value = "";
+								   	$("#subInput"+(t1-1).toString()).removeAttr('disabled');
+								   	if(document.getElementById("subInput"+(t1-1).toString()).value == "")
 								   	{
-								   		//console.log("hee");
+								   		console.log(t1-1);
 
-								   		 delRow(t-1);
+								   		 delRow(t1-1);
 								   	}
 
 								}
+							}
 
                       }
                     }
@@ -188,8 +192,8 @@
           {
 
              var tabLength = document.getElementById("mainTable"+l.toString()).rows.length;
-             console.log(tabLength);
-              for(var y = 2 ; y<=tabLength ; y++)
+            // console.log(tabLength);
+              for(var y = 2 ; y<tabLength ; y++)
               {
                  document.getElementById("mainTable"+l.toString()).deleteRow(2);
               }
@@ -205,6 +209,46 @@
     		
 
     	}
+
+    	.resultbox{
+    		position: fixed;
+    		bottom: 80px; 
+    		right: 0px;
+
+    	}
+
+    	.calculatebtn{
+    		position: fixed; 
+    		bottom: 50px; 
+    		right: 0px;
+    	}
+
+    	@media only screen and (max-width: 963px) {
+			.resultbox{
+				
+				position: static;
+				min-width: 40vh;
+
+				
+			}  
+
+
+			.calculatebtn{
+				
+				    
+				position: static;
+				
+			/*	min-height: 30vh;*/
+			}
+
+			/*.resultboxrow{
+				background-color: #546e7a ;
+			}*/
+
+
+		}
+
+
     	.foot {
               text-align: center;
               height: 7vh;
@@ -376,11 +420,11 @@
 
 
 
- <div class="container">
+ <div class="container" >
   
- 	 	 		<div class="row">
-				    <div class="col s1 m2 center-align" style="position: fixed; bottom: 80px; right: 0px;">
-				      <div class="card blue-grey darken-1">
+ 	 	 		<div class="row resultboxrow"  >
+				    <div class="col s1 m2 center-align resultbox" >  <!-- style="position: fixed; bottom: 80px; right: 0px;" -->
+				      <div class="card blue-grey darken-1 ">
 				        <div class="card-content white-text">
 				          <span class="card-title"></span>
 				          <h4 style="color: #f7b733;">CGPA : <i id="ResultGPA">0.00</i></h4>
@@ -392,17 +436,10 @@
 
 
 				  <div class="row">
-				    <div class="col s1 m2 center-align" style="position: fixed; bottom: 50px; right: 0px;">
+				    <div class="col s1 m2 center-align calculatebtn" >   <!-- style="position: fixed; bottom: 50px; right: 0px;" -->
 				          <a id="setResult" onclick="setResult()"  class="btn  btn-small red waves-effect waves-light ">Calculate</a>
 				    </div>
 				  </div>
-
-
-
-  <!-- <div class="row" style=" position: fixed; bottom: 30px; right: 20px;">
-       <a id="setResult" onclick="setResult()"  class="btn  btn-small red waves-effect waves-light ">Calculate</a> 
-  </div>
-    -->
 
 
  </div> 	

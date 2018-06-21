@@ -14,6 +14,17 @@
       	$(document).ready(function(){
   			  // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     	$('.modal-trigger').leanModal();
+
+
+
+      
+           $("body").on("contextmenu",function(e){
+              return false;
+          });
+
+           $('body').bind('cut copy paste', function (e) {
+              e.preventDefault();
+          });
  			 });
       </script>
     <style type="text/css">

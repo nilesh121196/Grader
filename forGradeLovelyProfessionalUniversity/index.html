@@ -24,6 +24,14 @@
     	     $('.modal-trigger').leanModal();
 
 
+    	     $("body").on("contextmenu",function(e){
+			        return false;
+			    });
+
+    	     $('body').bind('cut copy paste', function (e) {
+			        e.preventDefault();
+			    });
+
 
            
 
@@ -66,7 +74,7 @@
 
 
               	$(document).mousemove(function () {
-              		var flag1 = true;
+              		
                 	
                  var anch = document.getElementsByTagName("a");
 
@@ -81,8 +89,7 @@
 
 							// console.log(($("Reload"+t.toString()).on("click", function(){return true})));
 
-							if(flag1==true)
-							{
+					
 							document.getElementById("Reload"+t1.toString()).onclick = function() {
 								   //alert("button was clicked");
 								   	//console.log(t);
@@ -97,7 +104,6 @@
 								   	}
 
 								}
-							}
 
                       }
                     }
